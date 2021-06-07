@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.241"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints/>
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints/>
+   </rowConstraints>
+   <AnchorPane fx:id="generalAnchorPane" prefHeight="591.0" prefWidth="608.0" style="-fx-background-color: #555555;">
+      <Label fx:id="numberLabel" layoutX="16.0" layoutY="79.0" text="№ договора" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Label>
+      <AnchorPane fx:id="dateAnchorPane" layoutX="16.0" layoutY="16.0" prefHeight="42.0" prefWidth="196.0">
+         <ChoiceBox fx:id="dayChoiceBox" prefWidth="64.0"/>
+         <Label fx:id="dayLabel" layoutX="13.0" layoutY="25.0" text="Число" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </Label>
+         <ChoiceBox fx:id="monthChoiceBox" layoutX="66.0" onAction="#fillDays" prefWidth="64.0"/>
+         <Label fx:id="monthLabel" layoutX="79.0" layoutY="25.0" text="Месяц" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </Label>
+         <ChoiceBox fx:id="yearChoiceBox" layoutX="132.0" onAction="#fillMonths" prefWidth="64.0"/>
+         <Label fx:id="yearLabel" layoutX="152.0" layoutY="25.0" text="Год" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </Label>
+      </AnchorPane>
+      <CheckBox fx:id="completeCheckBox" layoutX="226.0" layoutY="44.0" mnemonicParsing="false" text="Исполнен"
+                textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </CheckBox>
+      <TextField fx:id="numberTextField" layoutX="95.0" layoutY="74.0" onKeyReleased="#cutOffLimitNumber"
+                 prefWidth="118.0">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </TextField>
+      <Label fx:id="descriptionLabel" layoutX="336.0" layoutY="36.0" text="Краткое описание договора"
+             textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Label>
+      <TextField fx:id="descriptionTextField" layoutX="336.0" layoutY="53.0" onKeyReleased="#cutOffLimitDescription"
+                 prefWidth="256.0">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </TextField>
+      <Label fx:id="errorLabel" layoutX="16.0" layoutY="101.0" textFill="#ee5919" visible="false">
+         <font>
+            <Font name="Consolas Bold" size="14.0"/>
+         </font>
+      </Label>
+      <Button fx:id="pinButton" layoutX="16.0" layoutY="134.0" mnemonicParsing="false" onAction="#onClickPinButton"
+              style="-fx-background-color: #777777;" text="Прикрепить договор" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <Label fx:id="contractLabel" layoutX="177.0" layoutY="139.0" text="Договор не прикреплен!" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Label>
+      <Button fx:id="addButton" layoutX="263.0" layoutY="177.0" mnemonicParsing="false" onAction="#onClickAddButton"
+              style="-fx-background-color: #777777;" text="Добавить" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <TextField fx:id="filterTextField" layoutX="146.0" layoutY="220.0" prefWidth="256.0">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </TextField>
+      <Button fx:id="searchButton" layoutX="403.0" layoutY="220.0" onAction="#onClickSearchButton"
+              mnemonicParsing="false" style="-fx-background-color: #777777;" text="Поиск" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <Button fx:id="confirmButton" layoutX="210.0" layoutY="177.0" onAction="#onClickConfirmButton"
+              mnemonicParsing="false" style="-fx-background-color: #777777;" text="Подтвердить" textFill="WHITE"
+              visible="false">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <Button fx:id="discardButton" layoutX="316.0" layoutY="177.0" mnemonicParsing="false"
+              onAction="#onClickDiscardButton" style="-fx-background-color: #777777;" text="Отменить"
+              textFill="WHITE" visible="false">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <AnchorPane fx:id="contentControlAnchorPane" layoutX="16.0" layoutY="270.0" prefHeight="19.0"
+                  prefWidth="351.0">
+         <RadioButton fx:id="allRadioButton" mnemonicParsing="false" onAction="#onSelectContentRadioButton"
+                      selected="true" text="Все" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </RadioButton>
+         <RadioButton fx:id="incompletedRadioButton" layoutX="51.0" mnemonicParsing="false"
+                      onAction="#onSelectContentRadioButton" text="Неисполненные" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </RadioButton>
+         <RadioButton fx:id="completedRadioButton" layoutX="179.0" mnemonicParsing="false"
+                      onAction="#onSelectContentRadioButton" text="Исполненные" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </RadioButton>
+         <Label fx:id="counterLabel" layoutX="297.0" layoutY="1.0" text="0" textFill="WHITE">
+            <font>
+               <Font name="Consolas" size="14.0"/>
+            </font>
+         </Label>
+      </AnchorPane>
+      <Button fx:id="editButton" layoutX="435.0" layoutY="263.0" mnemonicParsing="false"
+              onAction="#onClickEditButton" style="-fx-background-color: #777777;" text="Изменить" textFill="WHITE"
+              visible="false">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <Button fx:id="deleteButton" layoutX="518.0" layoutY="263.0" mnemonicParsing="false"
+              onAction="#onClickDeleteButton" style="-fx-background-color: #777777;" text="Удалить" textFill="WHITE"
+              visible="false">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <TableView fx:id="contractsTableView" focusTraversable="false" layoutX="16.0" layoutY="291.0"
+                 onKeyPressed="#onSelectTableItem" onMousePressed="#onSelectTableItem" prefHeight="256.0"
+                 prefWidth="576.0">
+         <placeholder>
+            <Label text="Данные не найдены!"/>
+         </placeholder>
+         <columns>
+            <TableColumn fx:id="dateTableColumn" editable="false" maxWidth="256.0" minWidth="64.0" prefWidth="128.0"
+                         text="Дата заключения"/>
+            <TableColumn fx:id="numberTableColumn" editable="false" maxWidth="128.0" minWidth="32.0" prefWidth="64.0"
+                         text="№"/>
+            <TableColumn fx:id="contractTableColumn" editable="false" maxWidth="256.0" minWidth="64.0"
+                         prefWidth="128.0" text="Договор"/>
+            <TableColumn fx:id="descriptionTableColumn" editable="false" maxWidth="256.0" minWidth="64.0"
+                         prefWidth="128.0" text="Краткое описание"/>
+            <TableColumn fx:id="statusTableColumn" editable="false" maxWidth="256.0" minWidth="64.0"
+                         prefWidth="128.0" text="Статус"/>
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="refreshButton" layoutX="263.0" layoutY="548.0" mnemonicParsing="false" onAction="#refreshTable"
+              style="-fx-background-color: #777777;" text="Обновить" textFill="WHITE">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+      <Button fx:id="openButton" layoutX="518.0" layoutY="548.0" mnemonicParsing="false"
+              onAction="#onClickOpenButton" style="-fx-background-color: #777777;" text="Открыть" textFill="WHITE"
+              visible="false">
+         <font>
+            <Font name="Consolas" size="14.0"/>
+         </font>
+      </Button>
+   </AnchorPane>
+</GridPane>
