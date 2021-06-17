@@ -22,27 +22,27 @@
    <rowConstraints>
       <RowConstraints/>
    </rowConstraints>
-   <AnchorPane fx:id="generalAnchorPane" prefHeight="591.0" prefWidth="608.0" style="-fx-background-color: #555555;">
-      <Label fx:id="numberLabel" layoutX="16.0" layoutY="79.0" text="№ договора" textFill="WHITE">
+   <AnchorPane prefHeight="591.0" prefWidth="608.0" style="-fx-background-color: #555555;">
+      <Label layoutX="16.0" layoutY="79.0" text="№ договора" textFill="WHITE">
          <font>
             <Font name="Consolas" size="14.0"/>
          </font>
       </Label>
       <AnchorPane fx:id="dateAnchorPane" layoutX="16.0" layoutY="16.0" prefHeight="42.0" prefWidth="196.0">
          <ChoiceBox fx:id="dayChoiceBox" prefWidth="64.0"/>
-         <Label fx:id="dayLabel" layoutX="13.0" layoutY="25.0" text="Число" textFill="WHITE">
+         <Label layoutX="13.0" layoutY="25.0" text="Число" textFill="WHITE">
             <font>
                <Font name="Consolas" size="14.0"/>
             </font>
          </Label>
          <ChoiceBox fx:id="monthChoiceBox" layoutX="66.0" onAction="#fillDays" prefWidth="64.0"/>
-         <Label fx:id="monthLabel" layoutX="79.0" layoutY="25.0" text="Месяц" textFill="WHITE">
+         <Label layoutX="79.0" layoutY="25.0" text="Месяц" textFill="WHITE">
             <font>
                <Font name="Consolas" size="14.0"/>
             </font>
          </Label>
          <ChoiceBox fx:id="yearChoiceBox" layoutX="132.0" onAction="#fillMonths" prefWidth="64.0"/>
-         <Label fx:id="yearLabel" layoutX="152.0" layoutY="25.0" text="Год" textFill="WHITE">
+         <Label layoutX="152.0" layoutY="25.0" text="Год" textFill="WHITE">
             <font>
                <Font name="Consolas" size="14.0"/>
             </font>
@@ -60,7 +60,7 @@
             <Font name="Consolas" size="14.0"/>
          </font>
       </TextField>
-      <Label fx:id="descriptionLabel" layoutX="336.0" layoutY="36.0" text="Краткое описание договора"
+      <Label layoutX="336.0" layoutY="36.0" text="Краткое описание договора"
              textFill="WHITE">
          <font>
             <Font name="Consolas" size="14.0"/>

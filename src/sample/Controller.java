@@ -41,40 +41,22 @@ public class Controller {
     private File contract;
 
     @FXML
-    protected AnchorPane generalAnchorPane;
-
-    @FXML
-    protected Label numberLabel;
-
-    @FXML
     private AnchorPane dateAnchorPane;
 
     @FXML
     private ChoiceBox<Integer> dayChoiceBox;
 
     @FXML
-    protected Label dayLabel;
-
-    @FXML
     private ChoiceBox<Integer> monthChoiceBox;
 
     @FXML
-    protected Label monthLabel;
-
-    @FXML
     private ChoiceBox<Integer> yearChoiceBox;
-
-    @FXML
-    protected Label yearLabel;
 
     @FXML
     private CheckBox completeCheckBox;
 
     @FXML
     private TextField numberTextField;
-
-    @FXML
-    protected Label descriptionLabel;
 
     @FXML
     private TextField descriptionTextField;
