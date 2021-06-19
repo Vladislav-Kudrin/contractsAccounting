@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,6 +34,8 @@ public class Controller {
     private ObservableList<Integer> yearsList = FXCollections.observableArrayList();
     private ObservableList<Integer> monthsList = FXCollections.observableArrayList();
     private ObservableList<Integer> daysList = FXCollections.observableArrayList();
+    private ObservableList<Integer> completionMonthsList = FXCollections.observableArrayList();
+    private ObservableList<Integer> completionDaysList = FXCollections.observableArrayList();
     private ObservableList<Contract> contractsList;
     private ObservableList<Contract> incompletedList;
     private ObservableList<Contract> completedList;
@@ -54,6 +57,18 @@ public class Controller {
 
     @FXML
     private CheckBox completeCheckBox;
+
+    @FXML
+    private AnchorPane completionDateAnchorPane;
+
+    @FXML
+    private ChoiceBox<Integer> completionDayChoiceBox;
+
+    @FXML
+    private ChoiceBox<Integer> completionMonthChoiceBox;
+
+    @FXML
+    private ChoiceBox<Integer> completionYearChoiceBox;
 
     @FXML
     private TextField numberTextField;
@@ -125,6 +140,9 @@ public class Controller {
     private TableColumn<Contract, String> statusTableColumn;
 
     @FXML
+    private TableColumn<Contract, String> completionDateTableColumn;
+
+    @FXML
     private Button refreshButton;
 
     @FXML
@@ -141,12 +159,19 @@ public class Controller {
         monthChoiceBox.setItems(monthsList);
         monthChoiceBox.setValue(MONTH);
         yearChoiceBox.setItems(yearsList);
-        yearChoiceBox.setValue(YEAR);
+        yearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
+        completionDayChoiceBox.setItems(completionDaysList);
+        completionDayChoiceBox.setValue(DAY);
+        completionMonthChoiceBox.setItems(completionMonthsList);
+        completionMonthChoiceBox.setValue(MONTH);
+        completionYearChoiceBox.setItems(yearsList);
+        completionYearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
         dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         numberTableColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         contractTableColumn.setCellValueFactory(new PropertyValueFactory<>("contract"));
         descriptionTableColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("textStatus"));
+        completionDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("completionDate"));
         allRadioButton.setToggleGroup(contentControl);
         allRadioButton.setSelected(true);
         incompletedRadioButton.setToggleGroup(contentControl);
@@ -155,6 +180,16 @@ public class Controller {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DOC, DOCX", "*.doc", "*.docx"));
 
         refreshTable();
+    }
+
+    @FXML
+    private void onClickCompleteCheckBox() {
+        if (completeCheckBox.isSelected() && !completeCheckBox.isDisabled()) {
+            completionYearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
+            completionMonthChoiceBox.setValue(completionMonthsList.get(completionMonthsList.size() - 1));
+            completionDayChoiceBox.setValue(completionDaysList.get(completionDaysList.size() - 1));
+            completionDateAnchorPane.setVisible(true);
+        } else completionDateAnchorPane.setVisible(false);
     }
 
     @FXML
@@ -170,12 +205,13 @@ public class Controller {
 
         number = (numberTextField.getText().isEmpty()) ? number : Integer.parseInt(numberTextField.getText());
 
-        if (isContractCorrect()) {
+        if (isInputCorrect()) {
             currentContract = new Contract(yearChoiceBox.getValue() + "-" + monthChoiceBox.getValue() + "-" + dayChoiceBox.getValue(),
                     number,
                     contract.getPath(),
                     descriptionTextField.getText(),
-                    (byte) ((completeCheckBox.isSelected()) ? 1 : 0));
+                    (byte) ((completeCheckBox.isSelected()) ? 1 : 0),
+                    (completeCheckBox.isSelected()) ? completionYearChoiceBox.getValue() + "-" + completionMonthChoiceBox.getValue() + "-" + completionDayChoiceBox.getValue() : null);
 
             DB_HANDLER.addContract(currentContract);
 
@@ -257,11 +293,20 @@ public class Controller {
         contentControlAnchorPane.setDisable(true);
         contractsTableView.setDisable(true);
         errorLabel.setVisible(false);
+
+        onClickCompleteCheckBox();
     }
 
     @FXML
     private void onClickConfirmButton() {
-        if (isContractCorrect()) {
+        if (isInputCorrect()) {
+            if (completeCheckBox.isSelected()) {
+                if (!completeCheckBox.isDisabled()) currentContract.setCompletionDate(completionYearChoiceBox.getValue() + "-" +
+                        completionMonthChoiceBox.getValue() + "-" + completionDayChoiceBox.getValue());
+
+                currentContract.setStatus((byte) 1);
+            }
+
             currentContract.setStatus((byte) ((completeCheckBox.isSelected()) ? 1 : 0));
             currentContract.setDescription(descriptionTextField.getText());
             currentContract.setPath(contract.getPath());
@@ -344,28 +389,59 @@ public class Controller {
     }
 
     @FXML
-    private void fillMonths() {
-        int choseMonth = monthChoiceBox.getValue();
+    private void fillMonths(ActionEvent event) {
+        ChoiceBox<Integer> currentMonthChoiceBox, currentYearChoiceBox;
+        ObservableList<Integer> currentMonthsList;
+        int choseMonth;
 
-        if (yearChoiceBox.getValue() == YEAR && monthsList.size() > MONTH) {
-            if (choseMonth > MONTH) monthChoiceBox.setValue(monthsList.get(MONTH - 1));
-
-            monthsList.remove(MONTH, monthsList.size());
+        if (event.getSource() == completionYearChoiceBox) {
+            currentMonthChoiceBox = completionMonthChoiceBox;
+            currentYearChoiceBox = completionYearChoiceBox;
+            currentMonthsList = completionMonthsList;
+        } else {
+            currentMonthChoiceBox = monthChoiceBox;
+            currentYearChoiceBox = yearChoiceBox;
+            currentMonthsList = monthsList;
         }
-        else if (monthsList.size() < 12) for (int index = monthsList.size() + 1; index <= 12; index++) monthsList.add(index);
 
-        fillDays();
+        choseMonth = currentMonthChoiceBox.getValue();
+
+        if (currentYearChoiceBox.getValue() == YEAR && (currentMonthsList.size() > MONTH || currentMonthsList.isEmpty())) {
+            if (choseMonth > MONTH) currentMonthChoiceBox.setValue(currentMonthsList.get(MONTH - 1));
+
+            if (currentMonthsList.isEmpty()) for (int index = 1; index <= MONTH; index++) currentMonthsList.add(index);
+            else currentMonthsList.remove(MONTH, currentMonthsList.size());
+        } else if (currentMonthsList.size() < 12) for (int index = currentMonthsList.size() + 1; index <= 12; index++) currentMonthsList.add(index);
+
+        fillDays(event);
     }
 
     @FXML
-    private void fillDays() {
-        int choseDay = dayChoiceBox.getValue();
+    private void fillDays(ActionEvent event) {
+        ChoiceBox<Integer> currentDayChoiceBox, currentMonthChoiceBox, currentYearChoiceBox;
+        ObservableList<Integer> currentDaysList;
+        int choseDay;
 
-        daysList.clear();
+        if (event.getSource() == completionMonthChoiceBox || event.getSource() == completionYearChoiceBox) {
+            currentDayChoiceBox = completionDayChoiceBox;
+            currentMonthChoiceBox = completionMonthChoiceBox;
+            currentYearChoiceBox = completionYearChoiceBox;
+            currentDaysList = completionDaysList;
+        } else {
+            currentDayChoiceBox = dayChoiceBox;
+            currentMonthChoiceBox = monthChoiceBox;
+            currentYearChoiceBox = yearChoiceBox;
+            currentDaysList = daysList;
+        }
 
-        if (monthChoiceBox.getValue() == MONTH && !yearChoiceBox.getItems().isEmpty() && yearChoiceBox.getValue() == YEAR) for (int index = 1; index <= DAY; index++) daysList.add(index);
+        choseDay = currentDayChoiceBox.getValue();
+
+        currentDaysList.clear();
+
+        if (currentMonthChoiceBox.getValue() == MONTH && !currentYearChoiceBox.getItems().isEmpty() && currentYearChoiceBox.getValue() == YEAR)
+            for (int index = 1; index <= DAY; index++) currentDaysList.add(index);
         else {
-            switch (monthChoiceBox.getValue()) {
+            switch (currentMonthChoiceBox.getValue()) {
                 case 1:
                 case 3:
                 case 5:
@@ -373,24 +449,24 @@ public class Controller {
                 case 8:
                 case 10:
                 case 12:
-                    if (daysList.size() < 31) for (int index = daysList.size() + 1; index <= 31; index++) daysList.add(index);
+                    for (int index = 1; index <= 31; index++) currentDaysList.add(index);
 
                     break;
                 case 4:
                 case 6:
                 case 9:
                 case 11:
-                    for (int index = 1; index <= 30; index++) daysList.add(index);
+                    for (int index = 1; index <= 30; index++) currentDaysList.add(index);
 
                     break;
                 default:
-                    if (!yearChoiceBox.getItems().isEmpty() && yearChoiceBox.getValue() % 4 == 0) for (int index = 1; index <= 29; index++) daysList.add(index);
-                    else for (int index = 1; index <= 28; index++) daysList.add(index);
+                    if (!currentYearChoiceBox.getItems().isEmpty() && currentYearChoiceBox.getValue() % 4 == 0) for (int index = 1; index <= 29; index++) currentDaysList.add(index);
+                    else for (int index = 1; index <= 28; index++) currentDaysList.add(index);
             }
         }
 
-        if (choseDay > daysList.size()) dayChoiceBox.setValue(daysList.get(daysList.size() - 1));
-        else dayChoiceBox.setValue(daysList.get(choseDay - 1));
+        if (choseDay > currentDaysList.size()) currentDayChoiceBox.setValue(currentDaysList.get(currentDaysList.size() - 1));
+        else currentDayChoiceBox.setValue(currentDaysList.get(choseDay - 1));
     }
 
     @FXML
@@ -437,6 +513,8 @@ public class Controller {
         descriptionTextField.clear();
         filterTextField.clear();
         contractLabel.setText("Договор не прикреплен!");
+
+        onClickCompleteCheckBox();
     }
 
     private void restoreElements() {
@@ -465,7 +543,7 @@ public class Controller {
         openButton.setVisible(false);
     }
 
-    private boolean isContractCorrect() {
+    private boolean isInputCorrect() {
         descriptionTextField.setText(descriptionTextField.getText().trim());
 
         if (!numberTextField.isDisable() && DB_HANDLER.isContractExist(number)) {
@@ -473,7 +551,23 @@ public class Controller {
             errorLabel.setVisible(true);
 
             return false;
-        } else if (contract == null || !contract.exists()) {
+        } else if (completeCheckBox.isSelected()) {
+            int date = Integer.parseInt(yearChoiceBox.getValue() +
+                    ((monthChoiceBox.getValue() < 10) ? "0" : "") +monthChoiceBox.getValue() +
+                    ((dayChoiceBox.getValue() < 10) ? "0" : "") + dayChoiceBox.getValue());
+            int completionDate = Integer.parseInt(completionYearChoiceBox.getValue() +
+                    ((completionMonthChoiceBox.getValue() < 10) ? "0" : "") + completionMonthChoiceBox.getValue() +
+                    ((completionDayChoiceBox.getValue() < 10) ? "0" : "") + completionDayChoiceBox.getValue());
+
+            if (completionDate < date) {
+                errorLabel.setText("Дата исполнения меньше даты заключения!");
+                errorLabel.setVisible(true);
+
+                return false;
+            }
+        }
+
+        if (contract == null || !contract.exists()) {
             contractLabel.setText("Договор не прикреплен!");
             errorLabel.setText("Необходимо прикрепить договор!");
             errorLabel.setVisible(true);

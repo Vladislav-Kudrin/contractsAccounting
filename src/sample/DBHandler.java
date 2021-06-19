@@ -34,7 +34,7 @@ class DBHandler extends DBConfig{
 
     void addContract(Contract contract) {
         PreparedStatement preparedStatement;
-        String insertQuery = "INSERT INTO " + CONTRACTS + "(" + DATE + ", " + NUMBER + ", " + PATH + ", " + DESCRIPTION + ", " + STATUS + ") " + "VALUES(?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO " + CONTRACTS + "(" + DATE + ", " + NUMBER + ", " + PATH + ", " + DESCRIPTION + ", " + STATUS + ", " + COMPLETION_DATE + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connect().prepareStatement(insertQuery);
@@ -44,6 +44,7 @@ class DBHandler extends DBConfig{
             preparedStatement.setString(3, contract.getPath());
             preparedStatement.setString(4, contract.getDescription());
             preparedStatement.setByte(5, contract.getStatus());
+            preparedStatement.setString(6, contract.getCompletionDate());
 
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
@@ -53,7 +54,7 @@ class DBHandler extends DBConfig{
 
     void updateContract(Contract contract) {
         PreparedStatement preparedStatement;
-        String updateQuery = "UPDATE " + CONTRACTS + " SET " + PATH + " = ?, " + DESCRIPTION + " = ?, " + STATUS + " = ? WHERE " + NUMBER + " = ?";
+        String updateQuery = "UPDATE " + CONTRACTS + " SET " + PATH + " = ?, " + DESCRIPTION + " = ?, " + STATUS + " = ?, " + COMPLETION_DATE + " = ? WHERE " + NUMBER + " = ?";
 
         try {
             preparedStatement = connect().prepareStatement(updateQuery);
@@ -61,7 +62,8 @@ class DBHandler extends DBConfig{
             preparedStatement.setString(1, contract.getPath());
             preparedStatement.setString(2, contract.getDescription());
             preparedStatement.setByte(3, contract.getStatus());
-            preparedStatement.setInt(4, contract.getNumber());
+            preparedStatement.setString(4, contract.getCompletionDate());
+            preparedStatement.setInt(5, contract.getNumber());
 
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
@@ -95,9 +97,11 @@ class DBHandler extends DBConfig{
 
             while (resultSet.next()) {
                 String[] splitDate = resultSet.getString(DATE).split("-");
+                String[] splitCompletionDate = (resultSet.getString(COMPLETION_DATE) != null) ? resultSet.getString(COMPLETION_DATE).split("-") : null;
 
                 contractsList.add(new Contract(splitDate[2] + "." + splitDate[1] + "." + splitDate[0], resultSet.getInt(NUMBER),
-                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS)));
+                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS),
+                        (splitCompletionDate != null) ? splitCompletionDate[2] + "." + splitCompletionDate[1] + "." + splitCompletionDate[0] : null));
             }
         } catch (SQLException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -122,7 +126,7 @@ class DBHandler extends DBConfig{
                 String[] splitDate = resultSet.getString(DATE).split("-");
 
                 contractsList.add(new Contract(splitDate[2] + "." + splitDate[1] + "." + splitDate[0], resultSet.getInt(NUMBER),
-                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS)));
+                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS), null));
             }
         } catch (SQLException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -145,9 +149,11 @@ class DBHandler extends DBConfig{
 
             while (resultSet.next()) {
                 String[] splitDate = resultSet.getString(DATE).split("-");
+                String[] splitCompletionDate = resultSet.getString(COMPLETION_DATE).split("-");
 
                 contractsList.add(new Contract(splitDate[2] + "." + splitDate[1] + "." + splitDate[0], resultSet.getInt(NUMBER),
-                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS)));
+                        resultSet.getString(PATH), resultSet.getString(DESCRIPTION), resultSet.getByte(STATUS),
+                        splitCompletionDate[2] + "." + splitCompletionDate[1] + "." + splitCompletionDate[0]));
             }
         } catch (SQLException exception) {
             JOptionPane.showMessageDialog(null, exception.getMessage());

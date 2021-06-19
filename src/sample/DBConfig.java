@@ -12,4 +12,5 @@ class DBConfig {
     static final String PATH = "path";
     static final String DESCRIPTION = "description";
     static final String STATUS = "status";
+    static final String COMPLETION_DATE = "completion_date";
 }

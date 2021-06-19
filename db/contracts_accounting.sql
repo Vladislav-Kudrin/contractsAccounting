@@ -25,11 +25,12 @@ DROP TABLE IF EXISTS `contracts`;
 CREATE TABLE `contracts` (
   `date` date NOT NULL,
   `number` int NOT NULL AUTO_INCREMENT,
-  `path` longtext,
+  `path` longtext NOT NULL,
   `description` varchar(32) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `completion_date` date DEFAULT NULL,
   PRIMARY KEY (`number`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +39,6 @@ CREATE TABLE `contracts` (
 
 LOCK TABLES `contracts` WRITE;
 /*!40000 ALTER TABLE `contracts` DISABLE KEYS */;
-INSERT INTO `contracts` VALUES ('2021-12-12',1,'suss','desc',1),('2021-12-12',2,'suss','desc',1),('2021-12-12',3,'suss','desc',1);
 /*!40000 ALTER TABLE `contracts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-01 16:32:56
+-- Dump completed on 2021-06-19 13:39:58
