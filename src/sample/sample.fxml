@@ -52,24 +52,23 @@
             <Font name="Consolas" size="14.0" />
          </font>
       </CheckBox>
-      <AnchorPane fx:id="completionDateAnchorPane" layoutX="243.0" layoutY="53.0" prefHeight="42.0" prefWidth="196.0"
-                  visible="false">
-         <ChoiceBox fx:id="completionDayChoiceBox" prefWidth="64.0"/>
+      <AnchorPane fx:id="completionDateAnchorPane" layoutX="243.0" layoutY="53.0" prefHeight="42.0" prefWidth="196.0" visible="false">
+         <ChoiceBox fx:id="completionDayChoiceBox" prefWidth="64.0" />
          <Label layoutX="13.0" layoutY="25.0" text="Число" textFill="WHITE">
             <font>
-               <Font name="Consolas" size="14.0"/>
+               <Font name="Consolas" size="14.0" />
             </font>
          </Label>
-         <ChoiceBox fx:id="completionMonthChoiceBox" layoutX="66.0" onAction="#fillDays" prefWidth="64.0"/>
+         <ChoiceBox fx:id="completionMonthChoiceBox" layoutX="66.0" onAction="#fillDays" prefWidth="64.0" />
          <Label layoutX="79.0" layoutY="25.0" text="Месяц" textFill="WHITE">
             <font>
-               <Font name="Consolas" size="14.0"/>
+               <Font name="Consolas" size="14.0" />
             </font>
          </Label>
-         <ChoiceBox fx:id="completionYearChoiceBox" layoutX="132.0" onAction="#fillMonths" prefWidth="64.0"/>
+         <ChoiceBox fx:id="completionYearChoiceBox" layoutX="132.0" onAction="#fillMonths" prefWidth="64.0" />
          <Label layoutX="152.0" layoutY="25.0" text="Год" textFill="WHITE">
             <font>
-               <Font name="Consolas" size="14.0"/>
+               <Font name="Consolas" size="14.0" />
             </font>
          </Label>
       </AnchorPane>
@@ -108,26 +107,34 @@
             <Font name="Consolas" size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="filterTextField" layoutX="210.0" layoutY="220.0" prefWidth="256.0">
-         <font>
-            <Font name="Consolas" size="14.0" />
-         </font>
-      </TextField>
-      <Button fx:id="searchButton" layoutX="467.0" layoutY="220.0" mnemonicParsing="false" onAction="#onClickSearchButton" style="-fx-background-color: #777777;" text="Поиск" textFill="WHITE">
-         <font>
-            <Font name="Consolas" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="confirmButton" layoutX="274.0" layoutY="177.0" mnemonicParsing="false" onAction="#onClickConfirmButton" style="-fx-background-color: #777777;" text="Подтвердить" textFill="WHITE" visible="false">
-         <font>
-            <Font name="Consolas" size="14.0" />
-         </font>
-      </Button>
-      <Button fx:id="discardButton" layoutX="380.0" layoutY="177.0" mnemonicParsing="false" onAction="#onClickDiscardButton" style="-fx-background-color: #777777;" text="Отменить" textFill="WHITE" visible="false">
-         <font>
-            <Font name="Consolas" size="14.0" />
-         </font>
-      </Button>
+       <AnchorPane fx:id="searchAnchorPane" layoutX="145.0" layoutY="220.0" prefHeight="27.0" prefWidth="445.0">
+           <ChoiceBox fx:id="criteriaChoiceBox" layoutY="1.0" prefWidth="128.0" />
+           <TextField fx:id="filterTextField" layoutX="129.0" prefWidth="256.0">
+              <font>
+                  <Font name="Consolas" size="14.0" />
+              </font>
+           </TextField>
+           <Button layoutX="386.0" mnemonicParsing="false" onAction="#onClickSearchButton" style="-fx-background-color: #777777;" text="Поиск" textFill="WHITE">
+              <font>
+                  <Font name="Consolas" size="14.0" />
+              </font>
+           </Button>
+       </AnchorPane>
+       <AnchorPane fx:id="editDialogAnchorPane" layoutX="274.0" layoutY="177.0" prefHeight="27.0" prefWidth="188.0"
+                   visible="false">
+           <Button mnemonicParsing="false" onAction="#onClickConfirmButton" style="-fx-background-color: #777777;"
+                   text="Подтвердить" textFill="WHITE">
+              <font>
+                  <Font name="Consolas" size="14.0"/>
+              </font>
+           </Button>
+           <Button layoutX="106.0" mnemonicParsing="false" onAction="#onClickDiscardButton"
+                   style="-fx-background-color: #777777;" text="Отменить" textFill="WHITE">
+              <font>
+                  <Font name="Consolas" size="14.0"/>
+              </font>
+           </Button>
+       </AnchorPane>
       <AnchorPane fx:id="contentControlAnchorPane" layoutX="16.0" layoutY="270.0" prefHeight="19.0" prefWidth="351.0">
          <RadioButton fx:id="allRadioButton" mnemonicParsing="false" onAction="#onSelectContentRadioButton" selected="true" text="Все" textFill="WHITE">
             <font>

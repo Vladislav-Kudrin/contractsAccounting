@@ -31,6 +31,12 @@ public class Controller {
     private final int DAY = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     private FileChooser fileChooser = new FileChooser();
     private ToggleGroup contentControl = new ToggleGroup();
+    private ObservableList<String> criteriaList = FXCollections.observableArrayList("Все",
+            "Дата заключения",
+            "Номер",
+            "Договор",
+            "Краткое описание",
+            "Дата исполнения");
     private ObservableList<Integer> yearsList = FXCollections.observableArrayList();
     private ObservableList<Integer> monthsList = FXCollections.observableArrayList();
     private ObservableList<Integer> daysList = FXCollections.observableArrayList();
@@ -89,16 +95,16 @@ public class Controller {
     private Button addButton;
 
     @FXML
+    private AnchorPane searchAnchorPane;
+
+    @FXML
+    private ChoiceBox<String> criteriaChoiceBox;
+
+    @FXML
     private TextField filterTextField;
 
     @FXML
-    private Button searchButton;
-
-    @FXML
-    private Button confirmButton;
-
-    @FXML
-    private Button discardButton;
+    private AnchorPane editDialogAnchorPane;
 
     @FXML
     private AnchorPane contentControlAnchorPane;
@@ -166,6 +172,8 @@ public class Controller {
         completionMonthChoiceBox.setValue(MONTH);
         completionYearChoiceBox.setItems(yearsList);
         completionYearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
+        criteriaChoiceBox.setItems(criteriaList);
+        criteriaChoiceBox.setValue(criteriaList.get(0));
         dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         numberTableColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
         contractTableColumn.setCellValueFactory(new PropertyValueFactory<>("contract"));
@@ -228,33 +236,63 @@ public class Controller {
             return;
         }
 
-        String toggledStatus;
-        FilteredList<Contract> filteredContracts = new FilteredList<>(contractsList);
+        FilteredList<Contract> filteredContracts;
 
-        if (contentControl.getSelectedToggle() != allRadioButton) {
-            toggledStatus = (contentControl.getSelectedToggle() == incompletedRadioButton) ? "Не исполнен" : "Исполнен";
+        if (contentControl.getSelectedToggle() != allRadioButton) filteredContracts = new FilteredList<>((contentControl.getSelectedToggle() == incompletedRadioButton) ? incompletedList : completedList);
+        else filteredContracts = new FilteredList<>(contractsList);
 
-            filteredContracts.setPredicate(item -> {
+        switch (criteriaChoiceBox.getSelectionModel().getSelectedIndex()) {
+            case 1:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText();
 
-                String lowerCaseFilter = filterTextField.getText().toLowerCase();
+                    return item.getDate().contains(filter);
+                });
 
-                if (item.getTextStatus().equals(toggledStatus) && String.valueOf(item.getNumber()).contains(lowerCaseFilter)) return true;
+                break;
+            case 2:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText().replaceAll("\\D", "");
 
-                if (item.getTextStatus().equals(toggledStatus) && item.getContract().toLowerCase().contains(lowerCaseFilter)) return true;
+                    return String.valueOf(item.getNumber()).equals(filter);
+                });
 
-                return (item.getTextStatus().equals(toggledStatus) && item.getDescription().toLowerCase().contains(lowerCaseFilter));
-            });
-        } else {
-            filteredContracts.setPredicate(item -> {
+                break;
+            case 3:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText().toLowerCase();
 
-                String lowerCaseFilter = filterTextField.getText().toLowerCase();
+                    return item.getContract().toLowerCase().contains(filter);
+                });
 
-                if (String.valueOf(item.getNumber()).contains(lowerCaseFilter)) return true;
+                break;
+            case 4:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText().toLowerCase();
 
-                if (item.getContract().toLowerCase().contains(lowerCaseFilter)) return true;
+                    return item.getDescription().toLowerCase().contains(filter);
+                });
 
-                return (item.getDescription().toLowerCase().contains(lowerCaseFilter));
-            });
+                break;
+            case 5:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText();
+
+                    return (item.getCompletionDate() != null && item.getCompletionDate().contains(filter));
+                });
+
+                break;
+            default:
+                filteredContracts.setPredicate(item -> {
+                    String filter = filterTextField.getText().toLowerCase();
+
+                    if (item.getDate().contains(filter)) return true;
+                    else if (String.valueOf(item.getNumber()).equals(filter.replaceAll("\\D", ""))) return true;
+                    else if (item.getContract().toLowerCase().contains(filter)) return true;
+                    else if (item.getDescription().toLowerCase().contains(filter)) return true;
+
+                    return (item.getCompletionDate() != null && item.getCompletionDate().contains(filter));
+                });
         }
 
         SortedList<Contract> sortedContracts = new SortedList<>(filteredContracts);
@@ -281,15 +319,13 @@ public class Controller {
         completeCheckBox.setSelected(currentContract.getStatus() == 1);
         completeCheckBox.setDisable(completeCheckBox.isSelected());
         contractLabel.setText(getFileName());
-        filterTextField.setDisable(true);
-        searchButton.setDisable(true);
+        searchAnchorPane.setDisable(true);
         addButton.setVisible(false);
         editButton.setDisable(true);
         deleteButton.setDisable(true);
         refreshButton.setDisable(true);
         openButton.setDisable(true);
-        confirmButton.setVisible(true);
-        discardButton.setVisible(true);
+        editDialogAnchorPane.setVisible(true);
         contentControlAnchorPane.setDisable(true);
         contractsTableView.setDisable(true);
         errorLabel.setVisible(false);
@@ -337,16 +373,22 @@ public class Controller {
     private void onSelectContentRadioButton() {
         if (contentControl.getSelectedToggle() == allRadioButton) {
             counterLabel.setText(String.valueOf(contractsList.size()));
-
             contractsTableView.setItems(contractsList);
+
+            if (criteriaList.size() < 6) criteriaList.add("Дата исполнения");
         } else if (contentControl.getSelectedToggle() == incompletedRadioButton) {
             counterLabel.setText(String.valueOf(incompletedList.size()));
-
             contractsTableView.setItems(incompletedList);
+
+            if (criteriaList.size() == 6) {
+                criteriaChoiceBox.setValue((criteriaChoiceBox.getSelectionModel().getSelectedIndex() == 5 ? criteriaList.get(4) : criteriaChoiceBox.getValue()));
+                criteriaList.remove(5);
+            }
         } else {
             counterLabel.setText(String.valueOf(completedList.size()));
-
             contractsTableView.setItems(completedList);
+
+            if (criteriaList.size() < 6) criteriaList.add("Дата исполнения");
         }
 
         onSelectTableItem();
@@ -521,10 +563,8 @@ public class Controller {
         dateAnchorPane.setDisable(false);
         numberTextField.setDisable(false);
         completeCheckBox.setDisable(false);
-        filterTextField.setDisable(false);
-        searchButton.setDisable(false);
-        confirmButton.setVisible(false);
-        discardButton.setVisible(false);
+        searchAnchorPane.setDisable(false);
+        editDialogAnchorPane.setVisible(false);
         addButton.setVisible(true);
         editButton.setDisable(false);
         deleteButton.setDisable(false);
