@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import sample.tables.*;
@@ -125,7 +126,10 @@ public class Controller {
     private Button editButton;
 
     @FXML
-    private Button deleteButton;
+    private AnchorPane deleteAnchorPane;
+
+    @FXML
+    private TextField deleteTextField;
 
     @FXML
     private TableView<Contract> contractsTableView;
@@ -322,7 +326,7 @@ public class Controller {
         searchAnchorPane.setDisable(true);
         addButton.setVisible(false);
         editButton.setDisable(true);
-        deleteButton.setDisable(true);
+        deleteAnchorPane.setDisable(true);
         refreshButton.setDisable(true);
         openButton.setDisable(true);
         editDialogAnchorPane.setVisible(true);
@@ -363,10 +367,18 @@ public class Controller {
 
     @FXML
     private void onClickDeleteButton() {
-        DB_HANDLER.deleteContract(currentContract.getNumber());
+        if (deleteTextField.getText().isEmpty()) {
+            errorLabel.setText("Введите номер выделенного договора для подтверждения!");
+            errorLabel.setVisible(true);
+        } else if (Integer.parseInt(deleteTextField.getText()) == currentContract.getNumber()) {
+            DB_HANDLER.deleteContract(currentContract.getNumber());
 
-        clearFields();
-        refreshTable();
+            clearFields();
+            refreshTable();
+        } else {
+            errorLabel.setText("Введенный номер не совпадает с номером выделенного договора!");
+            errorLabel.setVisible(true);
+        }
     }
 
     @FXML
@@ -398,7 +410,7 @@ public class Controller {
     private void onSelectTableItem() {
         if ((currentContract = contractsTableView.getSelectionModel().getSelectedItem()) != null) {
             editButton.setVisible(true);
-            deleteButton.setVisible(true);
+            deleteAnchorPane.setVisible(true);
             openButton.setVisible(true);
         } else resetElements();
     }
@@ -512,18 +524,19 @@ public class Controller {
     }
 
     @FXML
-    private void cutOffLimitNumber() {
-        String oldNumber = numberTextField.getText();
+    private void cutOffLimitNumber(KeyEvent event) {
+        TextField textField = (TextField) event.getTarget();
+        String oldNumber = textField.getText();
         String newNumber = oldNumber.replaceAll("\\D", "");
 
         if (!oldNumber.equals(newNumber)) {
-            numberTextField.setText(newNumber);
-            numberTextField.positionCaret(numberTextField.getLength());
+            textField.setText(newNumber);
+            textField.positionCaret(textField.getLength());
         }
 
-        if (numberTextField.getLength() > 9) {
-            numberTextField.setText(numberTextField.getText(0, 9));
-            numberTextField.positionCaret(9);
+        if (textField.getLength() > 9) {
+            textField.setText(textField.getText(0, 9));
+            textField.positionCaret(9);
         }
     }
 
@@ -567,7 +580,7 @@ public class Controller {
         editDialogAnchorPane.setVisible(false);
         addButton.setVisible(true);
         editButton.setDisable(false);
-        deleteButton.setDisable(false);
+        deleteAnchorPane.setDisable(false);
         refreshButton.setDisable(false);
         openButton.setDisable(false);
         contentControlAnchorPane.setDisable(false);
@@ -579,7 +592,7 @@ public class Controller {
 
     private void resetElements() {
         editButton.setVisible(false);
-        deleteButton.setVisible(false);
+        deleteAnchorPane.setVisible(false);
         openButton.setVisible(false);
     }
 

@@ -120,18 +120,15 @@
               </font>
            </Button>
        </AnchorPane>
-       <AnchorPane fx:id="editDialogAnchorPane" layoutX="274.0" layoutY="177.0" prefHeight="27.0" prefWidth="188.0"
-                   visible="false">
-           <Button mnemonicParsing="false" onAction="#onClickConfirmButton" style="-fx-background-color: #777777;"
-                   text="Подтвердить" textFill="WHITE">
+       <AnchorPane fx:id="editDialogAnchorPane" layoutX="274.0" layoutY="177.0" prefHeight="27.0" prefWidth="188.0" visible="false">
+           <Button mnemonicParsing="false" onAction="#onClickConfirmButton" style="-fx-background-color: #777777;" text="Подтвердить" textFill="WHITE">
               <font>
-                  <Font name="Consolas" size="14.0"/>
+                  <Font name="Consolas" size="14.0" />
               </font>
            </Button>
-           <Button layoutX="106.0" mnemonicParsing="false" onAction="#onClickDiscardButton"
-                   style="-fx-background-color: #777777;" text="Отменить" textFill="WHITE">
+           <Button layoutX="106.0" mnemonicParsing="false" onAction="#onClickDiscardButton" style="-fx-background-color: #777777;" text="Отменить" textFill="WHITE">
               <font>
-                  <Font name="Consolas" size="14.0"/>
+                  <Font name="Consolas" size="14.0" />
               </font>
            </Button>
        </AnchorPane>
@@ -162,11 +159,18 @@
             <Font name="Consolas" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="deleteButton" layoutX="646.0" layoutY="263.0" mnemonicParsing="false" onAction="#onClickDeleteButton" style="-fx-background-color: #777777;" text="Удалить" textFill="WHITE" visible="false">
-         <font>
-            <Font name="Consolas" size="14.0" />
-         </font>
-      </Button>
+       <AnchorPane fx:id="deleteAnchorPane" layoutX="646.0" layoutY="235.0" prefHeight="55.0" prefWidth="74.0" visible="false">
+           <TextField fx:id="deleteTextField" onKeyReleased="#cutOffLimitNumber" prefWidth="74.0" promptText="Номер">
+              <font>
+                  <Font name="Consolas" size="14.0" />
+              </font>
+           </TextField>
+           <Button layoutY="28.0" mnemonicParsing="false" onAction="#onClickDeleteButton" style="-fx-background-color: #777777;" text="Удалить" textFill="WHITE">
+              <font>
+                  <Font name="Consolas" size="14.0" />
+              </font>
+           </Button>
+       </AnchorPane>
       <TableView fx:id="contractsTableView" focusTraversable="false" layoutX="16.0" layoutY="291.0" onKeyPressed="#onSelectTableItem" onMousePressed="#onSelectTableItem" prefHeight="256.0" prefWidth="704.0">
          <placeholder>
             <Label text="Данные не найдены!" />
