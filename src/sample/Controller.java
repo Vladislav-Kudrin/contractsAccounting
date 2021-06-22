@@ -2,8 +2,12 @@ package sample;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.LogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -49,6 +53,16 @@ public class Controller {
     private int number;
     private Contract currentContract;
     private File contract;
+    private static Logger logger = Logger.getLogger(Controller.class.getName());
+
+    static {
+        try (FileInputStream cfg = new FileInputStream("cfg.config")) {
+            LogManager.getLogManager().readConfiguration(cfg);
+        } catch (IOException exception) {
+            logger.log(Level.WARNING, "Exception code: " + exception + ".");
+            exception.printStackTrace();
+        }
+    }
 
     @FXML
     private AnchorPane dateAnchorPane;
@@ -160,6 +174,10 @@ public class Controller {
 
     @FXML
     private void initialize() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         for (int index = 2000; index <= YEAR; index++) yearsList.add(index);
 
         while (DB_HANDLER.isContractExist(number)) number++;
@@ -192,27 +210,44 @@ public class Controller {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DOC, DOCX", "*.doc", "*.docx"));
 
         refreshTable();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickCompleteCheckBox() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         if (completeCheckBox.isSelected() && !completeCheckBox.isDisabled()) {
             completionYearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
             completionMonthChoiceBox.setValue(completionMonthsList.get(completionMonthsList.size() - 1));
             completionDayChoiceBox.setValue(completionDaysList.get(completionDaysList.size() - 1));
             completionDateAnchorPane.setVisible(true);
         } else completionDateAnchorPane.setVisible(false);
+
+        logger.log(Level.INFO, methodName + " is finished with : " + completionDateAnchorPane.isVisible() + ".");
     }
 
     @FXML
     private void onClickPinButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         contract = fileChooser.showOpenDialog(pinButton.getScene().getWindow());
 
         contractLabel.setText(getFileName());
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickAddButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         descriptionTextField.setText(descriptionTextField.getText().trim());
 
         number = (numberTextField.getText().isEmpty()) ? number : Integer.parseInt(numberTextField.getText());
@@ -229,13 +264,23 @@ public class Controller {
 
             clearFields();
             refreshTable();
+
+            logger.log(Level.INFO, methodName + " is running. Contract is added.");
         }
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickSearchButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         if (filterTextField.getText().isEmpty()) {
             refreshTable();
+
+            logger.log(Level.INFO, methodName + " is finishing. filterTextField is empty.");
 
             return;
         }
@@ -299,18 +344,25 @@ public class Controller {
                 });
         }
 
+        logger.log(Level.INFO, methodName + " is finishing. Selected criteria index: " + criteriaChoiceBox.getSelectionModel().getSelectedIndex() + ".");
+
         SortedList<Contract> sortedContracts = new SortedList<>(filteredContracts);
 
         sortedContracts.comparatorProperty().bind(contractsTableView.comparatorProperty());
         contractsTableView.setItems(sortedContracts);
 
         onSelectTableItem();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickEditButton() {
-        String[] date = currentContract.getDate().split("\\.");
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
+        logger.log(Level.INFO, methodName + " is running.");
+
+        String[] date = currentContract.getDate().split("\\.");
         contract = new File(currentContract.getPath());
 
         dayChoiceBox.setValue(Integer.parseInt(date[0]));
@@ -339,12 +391,15 @@ public class Controller {
 
     @FXML
     private void onClickConfirmButton() {
-        if (isInputCorrect()) {
-            if (completeCheckBox.isSelected()) {
-                if (!completeCheckBox.isDisabled()) currentContract.setCompletionDate(completionYearChoiceBox.getValue() + "-" +
-                        completionMonthChoiceBox.getValue() + "-" + completionDayChoiceBox.getValue());
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
-                currentContract.setStatus((byte) 1);
+        logger.log(Level.INFO, methodName + " is running.");
+
+        if (isInputCorrect()) {
+            if (completeCheckBox.isSelected() && !completeCheckBox.isDisabled()) {
+                currentContract.setCompletionDate(completionYearChoiceBox.getValue() + "-" +
+                        completionMonthChoiceBox.getValue() + "-" + completionDayChoiceBox.getValue());
+                logger.log(Level.INFO, methodName + " is running. Completion date is set.");
             }
 
             currentContract.setStatus((byte) ((completeCheckBox.isSelected()) ? 1 : 0));
@@ -356,38 +411,62 @@ public class Controller {
             clearFields();
             restoreElements();
             refreshTable();
+
+            logger.log(Level.INFO, methodName + " is finished.");
         }
     }
 
     @FXML
     private void onClickDiscardButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         clearFields();
         restoreElements();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickDeleteButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         if (deleteTextField.getText().isEmpty()) {
             errorLabel.setText("Введите номер выделенного договора для подтверждения!");
             errorLabel.setVisible(true);
+            logger.log(Level.INFO, methodName + " is running. deleteTextField is empty.");
         } else if (Integer.parseInt(deleteTextField.getText()) == currentContract.getNumber()) {
             DB_HANDLER.deleteContract(currentContract.getNumber());
 
             clearFields();
             refreshTable();
+
+            logger.log(Level.INFO, methodName + " is running. Contract is deleted.");
         } else {
             errorLabel.setText("Введенный номер не совпадает с номером выделенного договора!");
             errorLabel.setVisible(true);
+            logger.log(Level.INFO, methodName + " is running. Numbers conflict.");
         }
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onSelectContentRadioButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         if (contentControl.getSelectedToggle() == allRadioButton) {
             counterLabel.setText(String.valueOf(contractsList.size()));
             contractsTableView.setItems(contractsList);
 
             if (criteriaList.size() < 6) criteriaList.add("Дата исполнения");
+
+            logger.log(Level.INFO, methodName + " is running. All contracts shown.");
         } else if (contentControl.getSelectedToggle() == incompletedRadioButton) {
             counterLabel.setText(String.valueOf(incompletedList.size()));
             contractsTableView.setItems(incompletedList);
@@ -396,27 +475,43 @@ public class Controller {
                 criteriaChoiceBox.setValue((criteriaChoiceBox.getSelectionModel().getSelectedIndex() == 5 ? criteriaList.get(4) : criteriaChoiceBox.getValue()));
                 criteriaList.remove(5);
             }
+
+            logger.log(Level.INFO, methodName + " is running. Incompleted contracts shown.");
         } else {
             counterLabel.setText(String.valueOf(completedList.size()));
             contractsTableView.setItems(completedList);
 
             if (criteriaList.size() < 6) criteriaList.add("Дата исполнения");
+
+            logger.log(Level.INFO, methodName + " is running. Completed contracts shown.");
         }
 
         onSelectTableItem();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onSelectTableItem() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         if ((currentContract = contractsTableView.getSelectionModel().getSelectedItem()) != null) {
             editButton.setVisible(true);
             deleteAnchorPane.setVisible(true);
             openButton.setVisible(true);
         } else resetElements();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void refreshTable() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         contractsList = DB_HANDLER.getAll();
         incompletedList = DB_HANDLER.getIncompleted();
         completedList = DB_HANDLER.getCompleted();
@@ -430,20 +525,33 @@ public class Controller {
 
         resetElements();
         onSelectContentRadioButton();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void onClickOpenButton() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         try {
             Desktop.getDesktop().open(new File(currentContract.getPath()));
         } catch (IOException exception) {
             errorLabel.setText("Не удалось открыть файл!");
             errorLabel.setVisible(true);
+            logger.log(Level.WARNING, methodName + " is running. File not found.");
         }
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void fillMonths(ActionEvent event) {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         ChoiceBox<Integer> currentMonthChoiceBox, currentYearChoiceBox;
         ObservableList<Integer> currentMonthsList;
         int choseMonth;
@@ -452,10 +560,14 @@ public class Controller {
             currentMonthChoiceBox = completionMonthChoiceBox;
             currentYearChoiceBox = completionYearChoiceBox;
             currentMonthsList = completionMonthsList;
+
+            logger.log(Level.INFO, methodName + " is running. Completion date is changed.");
         } else {
             currentMonthChoiceBox = monthChoiceBox;
             currentYearChoiceBox = yearChoiceBox;
             currentMonthsList = monthsList;
+
+            logger.log(Level.INFO, methodName + " is running. Date is changed.");
         }
 
         choseMonth = currentMonthChoiceBox.getValue();
@@ -468,10 +580,16 @@ public class Controller {
         } else if (currentMonthsList.size() < 12) for (int index = currentMonthsList.size() + 1; index <= 12; index++) currentMonthsList.add(index);
 
         fillDays(event);
+
+        logger.log(Level.INFO, methodName + " is running. Months list size: " + currentMonthsList.size());
     }
 
     @FXML
     private void fillDays(ActionEvent event) {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         ChoiceBox<Integer> currentDayChoiceBox, currentMonthChoiceBox, currentYearChoiceBox;
         ObservableList<Integer> currentDaysList;
         int choseDay;
@@ -481,11 +599,15 @@ public class Controller {
             currentMonthChoiceBox = completionMonthChoiceBox;
             currentYearChoiceBox = completionYearChoiceBox;
             currentDaysList = completionDaysList;
+
+            logger.log(Level.INFO, methodName + " is running. Completion date is changed.");
         } else {
             currentDayChoiceBox = dayChoiceBox;
             currentMonthChoiceBox = monthChoiceBox;
             currentYearChoiceBox = yearChoiceBox;
             currentDaysList = daysList;
+
+            logger.log(Level.INFO, methodName + " is running. Date is changed.");
         }
 
         choseDay = currentDayChoiceBox.getValue();
@@ -521,10 +643,16 @@ public class Controller {
 
         if (choseDay > currentDaysList.size()) currentDayChoiceBox.setValue(currentDaysList.get(currentDaysList.size() - 1));
         else currentDayChoiceBox.setValue(currentDaysList.get(choseDay - 1));
+
+        logger.log(Level.INFO, methodName + " is finished. Days list size: " + currentDaysList.size());
     }
 
     @FXML
     private void cutOffLimitNumber(KeyEvent event) {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         TextField textField = (TextField) event.getTarget();
         String oldNumber = textField.getText();
         String newNumber = oldNumber.replaceAll("\\D", "");
@@ -532,32 +660,53 @@ public class Controller {
         if (!oldNumber.equals(newNumber)) {
             textField.setText(newNumber);
             textField.positionCaret(textField.getLength());
+            logger.log(Level.INFO, methodName + " is running. New number is detected.");
         }
 
         if (textField.getLength() > 9) {
             textField.setText(textField.getText(0, 9));
             textField.positionCaret(9);
+            logger.log(Level.INFO, methodName + " is running." + textField.getId() + " is trimmed.");
         }
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     @FXML
     private void cutOffLimitDescription() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         String trimmedString = descriptionTextField.getText().trim();
 
         if (trimmedString.length() > 32) {
             descriptionTextField.setText(trimmedString.substring(0, 32));
             descriptionTextField.positionCaret(32);
+            logger.log(Level.INFO, methodName + " is running. descriptionTextField is trimmed.");
         }
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     private String getFileName() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         String[] fullPath = (contract != null && contract.exists()) ? contract.getPath().split("\\\\") : new String[] {"Договор не прикреплен!"};
         String fileName = fullPath[fullPath.length - 1];
+
+        logger.log(Level.INFO, methodName + " is finishing with: " + fileName + ".");
 
         return (fileName.length() > 50) ? fileName.substring(0, 47) + "..." : fileName;
     }
 
     private void clearFields() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
+
         contract = null;
 
         yearChoiceBox.setValue(yearsList.get(yearsList.size() - 1));
@@ -570,9 +719,14 @@ public class Controller {
         contractLabel.setText("Договор не прикреплен!");
 
         onClickCompleteCheckBox();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     private void restoreElements() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
         dateAnchorPane.setDisable(false);
         numberTextField.setDisable(false);
         completeCheckBox.setDisable(false);
@@ -588,20 +742,30 @@ public class Controller {
         errorLabel.setVisible(false);
 
         onSelectTableItem();
+
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     private void resetElements() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
         editButton.setVisible(false);
         deleteAnchorPane.setVisible(false);
         openButton.setVisible(false);
+        logger.log(Level.INFO, methodName + " is finished.");
     }
 
     private boolean isInputCorrect() {
+        String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
+
+        logger.log(Level.INFO, methodName + " is running.");
         descriptionTextField.setText(descriptionTextField.getText().trim());
 
         if (!numberTextField.isDisable() && DB_HANDLER.isContractExist(number)) {
             errorLabel.setText("Договор с указанным номером уже существует!");
             errorLabel.setVisible(true);
+            logger.log(Level.INFO, methodName + " is finishing. Contract exist.");
 
             return false;
         } else if (completeCheckBox.isSelected()) {
@@ -615,6 +779,7 @@ public class Controller {
             if (completionDate < date) {
                 errorLabel.setText("Дата исполнения меньше даты заключения!");
                 errorLabel.setVisible(true);
+                logger.log(Level.INFO, methodName + " is finishing. Date conflicts.");
 
                 return false;
             }
@@ -624,9 +789,12 @@ public class Controller {
             contractLabel.setText("Договор не прикреплен!");
             errorLabel.setText("Необходимо прикрепить договор!");
             errorLabel.setVisible(true);
+            logger.log(Level.INFO, methodName + " is finishing. Contract not found.");
 
             return false;
         }
+
+        logger.log(Level.INFO, methodName + " is finishing.");
 
         return true;
     }
