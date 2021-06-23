@@ -29,6 +29,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import sample.tables.*;
 
+/**
+ * Controls sample.fxml scene.
+ *
+ * @author Vladislav
+ * @version 2.1
+ * @since 1.0
+ */
 public class Controller {
     private final DBHandler DB_HANDLER = new DBHandler();
     private final int YEAR = Calendar.getInstance().get(Calendar.YEAR);
@@ -172,6 +179,11 @@ public class Controller {
     @FXML
     private Button openButton;
 
+    /**
+     * Initializes default values.
+     *
+     * @since 1.0
+     */
     @FXML
     private void initialize() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -214,6 +226,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Sets {@code completionDateAnchorPane} visibility and completion date choice boxes' values.
+     *
+     * @since 1.1
+     */
     @FXML
     private void onClickCompleteCheckBox() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -230,6 +247,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished with : " + completionDateAnchorPane.isVisible() + ".");
     }
 
+    /**
+     * Allows to attach a contract file with doc and docx extensions.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickPinButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -242,6 +264,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Allows to add and adds {@code currentContract} into a database if the data of {@code currentContract} is valid.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickAddButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -252,7 +279,7 @@ public class Controller {
 
         number = (numberTextField.getText().isEmpty()) ? number : Integer.parseInt(numberTextField.getText());
 
-        if (isInputCorrect()) {
+        if (isInputValid()) {
             currentContract = new Contract(yearChoiceBox.getValue() + "-" + monthChoiceBox.getValue() + "-" + dayChoiceBox.getValue(),
                     number,
                     contract.getPath(),
@@ -271,6 +298,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Allows to search and searches a contract in a table by {@code criteriaChoiceBox} and {@code filterTextField} values.
+     * Refreshes the table if {@code filterTextField} is empty.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickSearchButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -356,6 +389,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Allows to edit {@code currentContract} briefing, completion status, completion date and path.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickEditButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -389,13 +427,18 @@ public class Controller {
         onClickCompleteCheckBox();
     }
 
+    /**
+     * Changes {@code currentContract} briefing, completion status, completion date and path to new if they are valid.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickConfirmButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
         logger.log(Level.INFO, methodName + " is running.");
 
-        if (isInputCorrect()) {
+        if (isInputValid()) {
             if (completeCheckBox.isSelected() && !completeCheckBox.isDisabled()) {
                 currentContract.setCompletionDate(completionYearChoiceBox.getValue() + "-" +
                         completionMonthChoiceBox.getValue() + "-" + completionDayChoiceBox.getValue());
@@ -416,6 +459,11 @@ public class Controller {
         }
     }
 
+    /**
+     * Discards all contract's changes while editing and restores all elements.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickDiscardButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -428,6 +476,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Allows to delete and deletes {@code currentContract} data if the current contract's number equals to {@code deleteTextField} value.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickDeleteButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -454,6 +507,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Sets {@code contractsTableView} content by selected {@code contentControl} toggle.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onSelectContentRadioButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -491,6 +549,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Checks if {@code contractsTableView} has a selected item and sets data of the selected item to {@code currentContract}.
+     * If {@code contractsTableView} has no selected items then resets all elements.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onSelectTableItem() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -506,6 +570,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Refreshes {@code contractsList}, {@code incompletedList} and {@code completedList} data.
+     * Sets an unused {@code number} to a contract's number auto fill.
+     *
+     * @since 1.0
+     */
     @FXML
     private void refreshTable() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -529,6 +599,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Allows to open and opens {@code currentContract} file if the file is exist.
+     *
+     * @since 1.0
+     */
     @FXML
     private void onClickOpenButton() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -546,6 +621,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Fills {@code currentMonthsList} with months.
+     *
+     * @since 1.0
+     * @param event a changed year choice box.
+     */
     @FXML
     private void fillMonths(ActionEvent event) {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -584,6 +665,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is running. Months list size: " + currentMonthsList.size());
     }
 
+    /**
+     * Fills {@code currentDaysList} with days.
+     *
+     * @since 1.0
+     * @param event a changed month or year choice box.
+     */
     @FXML
     private void fillDays(ActionEvent event) {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -647,6 +734,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished. Days list size: " + currentDaysList.size());
     }
 
+    /**
+     * Cuts out off limited values of {@code textField}.
+     *
+     * @since 1.0
+     * @param event a changed number text field.
+     */
     @FXML
     private void cutOffLimitNumber(KeyEvent event) {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -672,6 +765,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Cuts out off limited values of {@code descriptionTextField}.
+     *
+     * @since 1.0
+     */
     @FXML
     private void cutOffLimitDescription() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
@@ -689,6 +787,12 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Gets and returns a filename of an attached contract's file.
+     *
+     * @since 1.0
+     * @return the filename of the attached contract's file.
+     */
     private String getFileName() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
@@ -702,6 +806,11 @@ public class Controller {
         return (fileName.length() > 50) ? fileName.substring(0, 47) + "..." : fileName;
     }
 
+    /**
+     * Clears all fields.
+     *
+     * @since 1.0
+     */
     private void clearFields() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
@@ -724,6 +833,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Restores all elements.
+     *
+     * @since 1.0
+     */
     private void restoreElements() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
@@ -747,6 +861,11 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
+    /**
+     * Resets all elements.
+     *
+     * @since 1.0
+     */
     private void resetElements() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
@@ -757,7 +876,13 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is finished.");
     }
 
-    private boolean isInputCorrect() {
+    /**
+     * Validate an input data.
+     *
+     * @since 1.0
+     * @return true if the input data is valid, false if the input data is invalid.
+     */
+    private boolean isInputValid() {
         String methodName = new Object() {}.getClass().getEnclosingMethod().getName();
 
         logger.log(Level.INFO, methodName + " is running.");

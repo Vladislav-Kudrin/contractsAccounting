@@ -11,14 +11,33 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import sample.tables.*;
 
+/**
+ * Handles database's queries.
+ *
+ * @author Vladislav
+ * @version 2.0
+ * @since 1.0
+ */
 class DBHandler extends DBConfig{
 
+    /**
+     * Makes a connection to a database.
+     *
+     * @since 1.0
+     * @return the connection to the database.
+     * @throws SQLException an exception of the connection issues.
+     */
     private Connection connect() throws SQLException {
         String connection = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
         return DriverManager.getConnection(connection, USER, PASSWORD);
     }
 
+    /**
+     * Resets a value of a database's auto_increment.
+     *
+     * @since 1.0
+     */
     private void resetContracts() {
         PreparedStatement preparedStatement;
         String resetQuery = "ALTER TABLE " + CONTRACTS + " AUTO_INCREMENT = 1";
@@ -32,6 +51,12 @@ class DBHandler extends DBConfig{
         }
     }
 
+    /**
+     * Adds a contract's data to a database.
+     *
+     * @since 1.0
+     * @param contract the contract's data.
+     */
     void addContract(Contract contract) {
         PreparedStatement preparedStatement;
         String insertQuery = "INSERT INTO " + CONTRACTS + "(" + DATE + ", " + NUMBER + ", " + PATH + ", " + DESCRIPTION + ", " + STATUS + ", " + COMPLETION_DATE + ") " + "VALUES(?, ?, ?, ?, ?, ?)";
@@ -52,6 +77,12 @@ class DBHandler extends DBConfig{
         }
     }
 
+    /**
+     * Updates a contract's data in a database.
+     *
+     * @since 1.0
+     * @param contract the contract's data.
+     */
     void updateContract(Contract contract) {
         PreparedStatement preparedStatement;
         String updateQuery = "UPDATE " + CONTRACTS + " SET " + PATH + " = ?, " + DESCRIPTION + " = ?, " + STATUS + " = ?, " + COMPLETION_DATE + " = ? WHERE " + NUMBER + " = ?";
@@ -71,6 +102,12 @@ class DBHandler extends DBConfig{
         }
     }
 
+    /**
+     * Deletes a contract's data from a database.
+     *
+     * @since 1.0
+     * @param number the current contract's number.
+     */
     void deleteContract(int number) {
         PreparedStatement preparedStatement;
         String deleteQuery = "DELETE FROM " + CONTRACTS + " WHERE " + NUMBER + " = ?";
@@ -85,6 +122,12 @@ class DBHandler extends DBConfig{
         }
     }
 
+    /**
+     * Gets and returns all contracts' data from a database.
+     *
+     * @since 1.0
+     * @return all contracts' data from the database.
+     */
     ObservableList<Contract> getAll() {
         ResultSet resultSet;
         PreparedStatement preparedStatement;
@@ -112,6 +155,12 @@ class DBHandler extends DBConfig{
         return contractsList;
     }
 
+    /**
+     * Gets and returns incompleted contracts' data from a database.
+     *
+     * @since 1.0
+     * @return incompleted contracts' data from the database.
+     */
     ObservableList<Contract> getIncompleted() {
         ResultSet resultSet;
         PreparedStatement preparedStatement;
@@ -137,6 +186,12 @@ class DBHandler extends DBConfig{
         return contractsList;
     }
 
+    /**
+     * Gets and returns completed contracts' data from a database.
+     *
+     * @since 1.0
+     * @return completed contracts' data from the database.
+     */
     ObservableList<Contract> getCompleted() {
         ResultSet resultSet;
         PreparedStatement preparedStatement;
@@ -164,6 +219,13 @@ class DBHandler extends DBConfig{
         return contractsList;
     }
 
+    /**
+     * Checks a contract's existing in a database.
+     *
+     * @since 1.0
+     * @param number the current contract's number.
+     * @return true if the contract is exist in the database, false if the contract isn't exist in the database.
+     */
     boolean isContractExist(int number) {
         PreparedStatement preparedStatement;
         String selectQuery = "SELECT * FROM " + CONTRACTS + " WHERE " + NUMBER + " = ?";
