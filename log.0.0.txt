@@ -1,0 +1,302 @@
+июн 22, 2021 5:04:29 PM javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 8.0.241 by JavaFX runtime of version 8.0.152
+июн 22, 2021 5:04:29 PM sample.Controller initialize
+INFO: initialize is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running. Date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is finished. Days list size: 30
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running. Date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running. Date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is finished. Days list size: 22
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running. Months list size: 6
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running. Completion date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is finished. Days list size: 30
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running. Completion date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is running. Completion date is changed.
+июн 22, 2021 5:04:31 PM sample.Controller fillDays
+INFO: fillDays is finished. Days list size: 22
+июн 22, 2021 5:04:31 PM sample.Controller fillMonths
+INFO: fillMonths is running. Months list size: 6
+июн 22, 2021 5:04:31 PM sample.Controller refreshTable
+INFO: refreshTable is running.
+июн 22, 2021 5:04:32 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:04:32 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:04:32 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:04:32 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. All contracts shown.
+июн 22, 2021 5:04:32 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:04:32 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:04:32 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:04:32 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:04:32 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:04:32 PM sample.Controller refreshTable
+INFO: refreshTable is finished.
+июн 22, 2021 5:04:32 PM sample.Controller initialize
+INFO: initialize is finished.
+июн 22, 2021 5:04:53 PM sample.Controller onClickPinButton
+INFO: onClickPinButton is running.
+июн 22, 2021 5:05:15 PM sample.Controller getFileName
+INFO: getFileName is running.
+июн 22, 2021 5:05:15 PM sample.Controller getFileName
+INFO: getFileName is finishing with: incompleted1.doc.
+июн 22, 2021 5:05:15 PM sample.Controller onClickPinButton
+INFO: onClickPinButton is finished.
+июн 22, 2021 5:05:21 PM sample.Controller onClickAddButton
+INFO: onClickAddButton is running.
+июн 22, 2021 5:05:21 PM sample.Controller isInputCorrect
+INFO: isInputCorrect is running.
+июн 22, 2021 5:05:21 PM sample.Controller isInputCorrect
+INFO: isInputCorrect is finishing.
+июн 22, 2021 5:05:21 PM sample.Controller clearFields
+INFO: clearFields is running.
+июн 22, 2021 5:05:21 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is running.
+июн 22, 2021 5:05:21 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is finished with : false.
+июн 22, 2021 5:05:21 PM sample.Controller clearFields
+INFO: clearFields is finished.
+июн 22, 2021 5:05:21 PM sample.Controller refreshTable
+INFO: refreshTable is running.
+июн 22, 2021 5:05:21 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:21 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:21 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:05:21 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. All contracts shown.
+июн 22, 2021 5:05:21 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:21 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:21 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:21 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:21 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:05:21 PM sample.Controller refreshTable
+INFO: refreshTable is finished.
+июн 22, 2021 5:05:21 PM sample.Controller onClickAddButton
+INFO: onClickAddButton is running. Contract is added.
+июн 22, 2021 5:05:21 PM sample.Controller onClickAddButton
+INFO: onClickAddButton is finished.
+июн 22, 2021 5:05:29 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:05:29 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. Completed contracts shown.
+июн 22, 2021 5:05:29 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:29 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:29 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:29 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:29 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:05:31 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:05:31 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. Incompleted contracts shown.
+июн 22, 2021 5:05:31 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:31 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:31 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:31 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:31 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:05:32 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:32 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:36 PM sample.Controller onClickEditButton
+INFO: onClickEditButton is running.
+июн 22, 2021 5:05:36 PM sample.Controller getFileName
+INFO: getFileName is running.
+июн 22, 2021 5:05:36 PM sample.Controller getFileName
+INFO: getFileName is finishing with: incompleted1.doc.
+июн 22, 2021 5:05:36 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is running.
+июн 22, 2021 5:05:36 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is finished with : false.
+июн 22, 2021 5:05:40 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is running.
+июн 22, 2021 5:05:40 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is finished with : true.
+июн 22, 2021 5:05:48 PM sample.Controller onClickConfirmButton
+INFO: onClickConfirmButton is running.
+июн 22, 2021 5:05:48 PM sample.Controller isInputCorrect
+INFO: isInputCorrect is running.
+июн 22, 2021 5:05:48 PM sample.Controller isInputCorrect
+INFO: isInputCorrect is finishing.
+июн 22, 2021 5:05:48 PM sample.Controller onClickConfirmButton
+INFO: onClickConfirmButton is running. Completion date is set.
+июн 22, 2021 5:05:48 PM sample.Controller clearFields
+INFO: clearFields is running.
+июн 22, 2021 5:05:48 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is running.
+июн 22, 2021 5:05:48 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is finished with : false.
+июн 22, 2021 5:05:48 PM sample.Controller clearFields
+INFO: clearFields is finished.
+июн 22, 2021 5:05:48 PM sample.Controller restoreElements
+INFO: restoreElements is running.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:48 PM sample.Controller restoreElements
+INFO: restoreElements is finished.
+июн 22, 2021 5:05:48 PM sample.Controller refreshTable
+INFO: refreshTable is running.
+июн 22, 2021 5:05:48 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:48 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. Incompleted contracts shown.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:48 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:48 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:48 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:05:48 PM sample.Controller refreshTable
+INFO: refreshTable is finished.
+июн 22, 2021 5:05:48 PM sample.Controller onClickConfirmButton
+INFO: onClickConfirmButton is finished.
+июн 22, 2021 5:05:50 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:05:51 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. Completed contracts shown.
+июн 22, 2021 5:05:51 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:51 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:05:51 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:05:51 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:05:51 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:05:52 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:05:52 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:06:12 PM sample.Controller onClickSearchButton
+INFO: onClickSearchButton is running.
+июн 22, 2021 5:06:12 PM sample.Controller onClickSearchButton
+INFO: onClickSearchButton is finishing. Selected criteria index: 5.
+июн 22, 2021 5:06:12 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:06:12 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:06:12 PM sample.Controller onClickSearchButton
+INFO: onClickSearchButton is finished.
+июн 22, 2021 5:06:15 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:06:15 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:06:18 PM sample.Controller onClickOpenButton
+INFO: onClickOpenButton is running.
+июн 22, 2021 5:06:18 PM sample.Controller onClickOpenButton
+INFO: onClickOpenButton is finished.
+июн 22, 2021 5:06:34 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running.
+июн 22, 2021 5:06:34 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running. deleteTextField is empty.
+июн 22, 2021 5:06:34 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is finished.
+июн 22, 2021 5:06:37 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is running.
+июн 22, 2021 5:06:37 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is finished.
+июн 22, 2021 5:06:37 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is running.
+июн 22, 2021 5:06:37 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is finished.
+июн 22, 2021 5:06:39 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running.
+июн 22, 2021 5:06:39 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running. Numbers conflict.
+июн 22, 2021 5:06:39 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is finished.
+июн 22, 2021 5:06:42 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is running.
+июн 22, 2021 5:06:42 PM sample.Controller cutOffLimitNumber
+INFO: cutOffLimitNumber is finished.
+июн 22, 2021 5:06:44 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running.
+июн 22, 2021 5:06:44 PM sample.Controller clearFields
+INFO: clearFields is running.
+июн 22, 2021 5:06:44 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is running.
+июн 22, 2021 5:06:44 PM sample.Controller onClickCompleteCheckBox
+INFO: onClickCompleteCheckBox is finished with : false.
+июн 22, 2021 5:06:44 PM sample.Controller clearFields
+INFO: clearFields is finished.
+июн 22, 2021 5:06:44 PM sample.Controller refreshTable
+INFO: refreshTable is running.
+июн 22, 2021 5:06:44 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:06:44 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:06:44 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running.
+июн 22, 2021 5:06:44 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is running. Completed contracts shown.
+июн 22, 2021 5:06:44 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is running.
+июн 22, 2021 5:06:44 PM sample.Controller resetElements
+INFO: resetElements is running.
+июн 22, 2021 5:06:44 PM sample.Controller resetElements
+INFO: resetElements is finished.
+июн 22, 2021 5:06:44 PM sample.Controller onSelectTableItem
+INFO: onSelectTableItem is finished.
+июн 22, 2021 5:06:44 PM sample.Controller onSelectContentRadioButton
+INFO: onSelectContentRadioButton is finished.
+июн 22, 2021 5:06:44 PM sample.Controller refreshTable
+INFO: refreshTable is finished.
+июн 22, 2021 5:06:44 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is running. Contract is deleted.
+июн 22, 2021 5:06:44 PM sample.Controller onClickDeleteButton
+INFO: onClickDeleteButton is finished.
