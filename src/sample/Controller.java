@@ -716,6 +716,7 @@ public class Controller {
         completeCheckBox.setSelected(false);
         descriptionTextField.clear();
         filterTextField.clear();
+        deleteTextField.clear();
         contractLabel.setText("Договор не прикреплен!");
 
         onClickCompleteCheckBox();
