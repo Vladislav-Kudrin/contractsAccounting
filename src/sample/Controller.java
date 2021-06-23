@@ -825,7 +825,6 @@ public class Controller {
         completeCheckBox.setSelected(false);
         descriptionTextField.clear();
         filterTextField.clear();
-        deleteTextField.clear();
         contractLabel.setText("Договор не прикреплен!");
 
         onClickCompleteCheckBox();
@@ -872,6 +871,7 @@ public class Controller {
         logger.log(Level.INFO, methodName + " is running.");
         editButton.setVisible(false);
         deleteAnchorPane.setVisible(false);
+        deleteTextField.clear();
         openButton.setVisible(false);
         logger.log(Level.INFO, methodName + " is finished.");
     }
