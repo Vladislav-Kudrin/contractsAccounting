@@ -28,9 +28,9 @@ class DBHandler extends DBConfig{
      * @throws SQLException an exception of the connection issues.
      */
     private Connection connect() throws SQLException {
-        String connection = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
+        String connection = "jdbc:mysql://" + host + ":" + port + "/" + DATABASE;
 
-        return DriverManager.getConnection(connection, USER, PASSWORD);
+        return DriverManager.getConnection(connection, user, password);
     }
 
     /**
