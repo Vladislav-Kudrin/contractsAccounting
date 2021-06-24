@@ -22,19 +22,19 @@ class DBConfig {
 
     static {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("config.json"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("config.json"));
             String line;
 
-            while ((line = br.readLine()) != null) json = json.concat(line);
+            while ((line = bufferedReader.readLine()) != null) json = json.concat(line);
 
-            br.close();
+            bufferedReader.close();
 
-            JSONObject jo = new JSONObject(json);
+            JSONObject jsonObject = new JSONObject(json);
 
-            host = jo.getString("host");
-            port = jo.getString("port");
-            user = jo.getString("user");
-            password = jo.getString("password");
+            host = jsonObject.getString("host");
+            port = jsonObject.getString("port");
+            user = jsonObject.getString("user");
+            password = jsonObject.getString("password");
         } catch (IOException exception) {
             JOptionPane.showMessageDialog(null, "Please, create or check config.json file!", "Config file is missed or corrupted", JOptionPane.ERROR_MESSAGE);
         }
